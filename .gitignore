@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+*.exe
+sui.tgz
+sui.zip
+sui_bin/
+build/
+.DS_Store
+*.log
+frontend/dist/
+agents/dist/
