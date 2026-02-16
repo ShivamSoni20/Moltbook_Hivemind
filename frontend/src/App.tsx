@@ -285,7 +285,7 @@ function App() {
             <main className="ml-64 p-8 flex-grow overflow-y-auto">
                 <header className="flex justify-between items-center mb-10 max-w-7xl mx-auto">
                     <div>
-                        <h2 className="text-3xl font-black tracking-tighter">{activeTab === 'marketplace' ? 'LIVE AUCTIONS' : activeTab === 'agents' ? 'SWARM STATUS' : activeTab === 'walrus' ? 'STORAGE VAULT' : 'SYSTEM INTELLIGENCE'}</h2>
+                        <h2 className="text-3xl font-bold tracking-tight">{activeTab === 'marketplace' ? 'Live Auctions' : activeTab === 'agents' ? 'Agent Swarm' : activeTab === 'walrus' ? 'Vault Storage' : 'Activity Feed'}</h2>
                         <p className="text-slate-400 font-medium">Operating on Sui Testnet Protocol v1.4</p>
                     </div>
                     <button
@@ -304,7 +304,7 @@ function App() {
                                 <div key={job.id} className="glass-card group hover:border-orange-500/30 transition-all">
                                     <div className="flex justify-between items-start mb-6">
                                         <div>
-                                            <h4 className="text-2xl font-black mb-2 tracking-tight group-hover:text-orange-500 transition-colors uppercase italic">{job.title}</h4>
+                                            <h4 className="text-2xl font-bold mb-2 tracking-tight group-hover:text-orange-500 transition-colors uppercase italic">{job.title}</h4>
                                             <div className="flex gap-2">
                                                 <span className="px-3 py-1 bg-white/5 text-slate-400 text-[10px] font-black uppercase rounded-lg border border-white/5 tracking-widest">Sui Escrow</span>
                                                 <span className="px-3 py-1 bg-white/5 text-slate-400 text-[10px] font-black uppercase rounded-lg border border-white/5 tracking-widest">Walrus Link</span>
@@ -312,13 +312,13 @@ function App() {
                                         </div>
                                         <div className="text-right flex flex-col items-end">
                                             <div className="text-3xl font-black text-white">{job.bounty}</div>
-                                            <div className="text-[10px] text-slate-500 uppercase font-black tracking-widest">Available Reward</div>
+                                            <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Bounty Amount</div>
                                         </div>
                                     </div>
 
                                     <div className="space-y-4 mb-8">
                                         <div className="flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/5">
-                                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Live Agent</span>
+                                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Assigned Agent</span>
                                             <span className="text-sm font-bold text-orange-400 font-mono tracking-tighter italic">{job.worker}</span>
                                         </div>
                                         <div className="flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/5">
@@ -335,14 +335,14 @@ function App() {
                                             onClick={() => setSelectedJob(job)}
                                             className="flex-grow py-4 glass rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all border-white/10"
                                         >
-                                            View Manifest
+                                            View Details
                                         </button>
                                         {job.status === 'Delivered' && (
                                             <button
                                                 onClick={() => handleReleasePayment(job.id)}
                                                 className="px-8 py-4 bg-green-500 hover:bg-green-600 rounded-2xl text-xs font-black uppercase tracking-widest text-white transition-all shadow-lg shadow-green-500/20"
                                             >
-                                                Release Pay
+                                                Release Payment
                                             </button>
                                         )}
                                     </div>
@@ -365,7 +365,7 @@ function App() {
                                     <h4 className="text-2xl font-black mb-1 uppercase italic">{agent.name}</h4>
                                     <div className="flex items-center justify-center gap-1.5 mb-6">
                                         <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_5px_rgba(34,197,94,1)]" />
-                                        <span className="text-[10px] text-emerald-400 uppercase tracking-[0.2em] font-black">Online Agent</span>
+                                        <span className="text-[10px] text-emerald-400 uppercase tracking-widest font-bold">Online</span>
                                     </div>
                                     <div className="space-y-3 bg-white/5 p-4 rounded-2xl border border-white/5 mb-6 font-mono text-left text-[10px] text-slate-500">
                                         <div>&gt; STATUS: {agent.name === 'PythonPro' ? 'READY' : 'POLLING'}</div>
@@ -383,7 +383,7 @@ function App() {
                             <div className="glass-card p-12 text-center bg-grid border-white/10 group relative overflow-hidden">
                                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 opacity-50" />
                                 <Database className="w-16 h-16 text-blue-500 mx-auto mb-6 group-hover:scale-110 transition-transform duration-500" />
-                                <h3 className="text-4xl font-black mb-4 uppercase tracking-tighter italic">Walrus Verification</h3>
+                                <h3 className="text-4xl font-bold mb-4 uppercase tracking-tighter italic">Walrus Storage</h3>
                                 <p className="text-slate-400 text-lg max-w-xl mx-auto font-medium leading-relaxed">
                                     Secure, decentralized task delivery. Every agent output is hashed, uploaded to Walrus storage, and linked permanently to the bounty escrow.
                                 </p>
@@ -414,7 +414,7 @@ function App() {
                                         <log.icon className={`w-5 h-5 ${log.color}`} />
                                     </div>
                                     <div className="flex-grow">
-                                        <p className="text-sm font-black text-slate-200 uppercase italic tracking-tighter">{log.text}</p>
+                                        <p className="text-sm font-bold text-slate-200 uppercase italic tracking-tighter">{log.text}</p>
                                         <p className="text-[10px] text-slate-600 font-bold uppercase tracking-widest mt-1">{log.time}</p>
                                     </div>
                                     <ChevronRight className="w-5 h-5 text-slate-700 group-hover:text-white transition-colors" />
@@ -438,7 +438,7 @@ function App() {
                         </button>
 
                         <div className="flex items-center gap-4 mb-10">
-                            <div className="px-4 py-1 bg-orange-500/10 border border-orange-500/20 text-[10px] font-black text-orange-400 uppercase tracking-[0.2em] rounded-full">Manifest Insight</div>
+                            <div className="px-4 py-1 bg-orange-500/10 border border-orange-500/20 text-[10px] font-bold text-orange-400 uppercase tracking-widest rounded-full">Task Details</div>
                             <span className="text-slate-700 font-black text-[10px]">ID: {selectedJob.id}</span>
                         </div>
 
@@ -449,17 +449,17 @@ function App() {
                                 <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Project Parameters</h4>
                                 <div className="space-y-6">
                                     <div className="flex flex-col">
-                                        <span className="text-[10px] font-black text-slate-700 uppercase mb-1">Status Protocol</span>
+                                        <span className="text-[10px] font-bold text-slate-700 uppercase mb-1">Current Status</span>
                                         <span className="text-lg font-bold text-white italic">{selectedJob.status}</span>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="text-[10px] font-black text-slate-700 uppercase mb-1">Contract Value</span>
+                                        <span className="text-[10px] font-bold text-slate-700 uppercase mb-1">Bounty Budget</span>
                                         <span className="text-3xl font-black text-orange-500">{selectedJob.bounty}</span>
                                     </div>
                                 </div>
                             </div>
                             <div>
-                                <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Entities involved</h4>
+                                <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Participants</h4>
                                 <div className="space-y-6">
                                     <div className="flex flex-col">
                                         <span className="text-[10px] font-black text-slate-700 uppercase mb-1">Origin Poster</span>
@@ -474,7 +474,7 @@ function App() {
                         </div>
 
                         <div className="mb-12">
-                            <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Mission Brief</h4>
+                            <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Task Description</h4>
                             <p className="text-slate-400 leading-relaxed font-medium bg-white/5 p-6 rounded-2xl border border-white/5">
                                 {selectedJob.description}
                             </p>
@@ -485,7 +485,7 @@ function App() {
                                 onClick={() => setSelectedJob(null)}
                                 className="px-10 py-5 glass font-black uppercase text-xs tracking-widest hover:bg-white/10 transition-all rounded-2xl flex-grow border-white/10"
                             >
-                                Close Manifest
+                                Close Details
                             </button>
                             {selectedJob.statusCode === 2 && (
                                 <button
