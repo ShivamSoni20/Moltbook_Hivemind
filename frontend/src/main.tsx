@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 const { networkConfig } = createNetworkConfig({
     testnet: { url: "https://fullnode.testnet.sui.io:443" },
     mainnet: { url: "https://fullnode.mainnet.sui.io:443" },
-});
+} as any);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
