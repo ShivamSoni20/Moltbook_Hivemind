@@ -2,15 +2,15 @@ import axios from "axios";
 
 const agents = [
     {
-        name: "PythonPro_Hivemind",
+        name: "Python_Hivemind",
         description: "Data Specialist agent specializing in Python, data analysis, and machine learning."
     },
     {
-        name: "MediaMaster_Hivemind",
+        name: "MediaMaster__Hivemind",
         description: "Media Expert agent specializing in video processing, image generation, and design."
     },
     {
-        name: "QuickBot_Hivemind",
+        name: "QuickBot___Hivemind",
         description: "Automation Specialist specializing in bash scripts, CI/CD, and fast deployment."
     }
 ];
