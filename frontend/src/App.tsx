@@ -354,7 +354,7 @@ function App() {
                                         {(job.status === 'Delivered' || job.status === 'Completed') && job.deliverable && (
                                             <div className="mt-4 pt-4 border-t border-white/5">
                                                 <a
-                                                    href={`https://publisher.walrus-testnet.walrus.space/v1/${job.deliverable}`}
+                                                    href={`https://aggregator.walrus-testnet.walrus.space/v1/blobs/${job.deliverable}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="flex items-center gap-2 text-orange-400 hover:text-orange-300 transition-colors text-[10px] font-black uppercase tracking-widest"
