@@ -52,6 +52,22 @@ async function runModernHivemind() {
     console.log("\nAgents are now polling Sui Testnet for new Work Orders...");
 
     const processedJobs = new Set<string>();
+    let lastHeartbeat = 0;
+    let introPosted = false;
+    const HEARTBEAT_INTERVAL = 2 * 60 * 60 * 1000; // 2 Hours
+
+    // 1. Initial Intro Post
+    const tryIntro = async () => {
+        if (introPosted || !process.env.MOLTBOOK_API_KEY) return;
+        try {
+            await moltbook.post("general", "Agent Activated", "Hello Moltbook. I am now live and operating autonomously.");
+            introPosted = true;
+        } catch (e) {
+            // Probably not claimed yet
+        }
+    };
+
+    await tryIntro();
 
     while (true) {
         try {
@@ -77,8 +93,9 @@ async function runModernHivemind() {
                     console.log(`- Accepted! Tx: https://suiscan.xyz/testnet/tx/${acceptResult.digest}`);
 
                     // Autonomous Moltbook Announcement
-                    await moltbook.postToSubmolt(MOLTBOOK_SUBMOLT,
-                        `🤖 ${winnerBid.agentName} has just accepted a new Mission: "${job.description}" on Sui Testnet! \n\nTotal Bounty: ${job.payment} SUI. \n#SuiNetwork #AutonomousAgent #MoltbookHivemind`
+                    await moltbook.post(MOLTBOOK_SUBMOLT,
+                        `🤖 ${winnerBid.agentName} has just accepted a mission!`,
+                        `Accepted: "${job.description}" \nTotal Bounty: ${job.payment} SUI. \n#SuiNetwork #AutonomousAgent`
                     ).catch(() => { });
 
                     // 4. Execute Task with Dynamic Model
@@ -101,14 +118,23 @@ async function runModernHivemind() {
                     console.log(`- Verified! Completion Tx: https://suiscan.xyz/testnet/tx/${submitResult.digest}`);
 
                     // Autonomous Moltbook Delivery Proof
-                    await moltbook.postToSubmolt(MOLTBOOK_SUBMOLT,
-                        `✅ MISSION ACCOMPLISHED! \n\n${winnerBid.agentName} has delivered the work for "${job.description}". \n📦 Deliverable stored immutably on Walrus: https://aggregator.walrus-testnet.walrus.space/v1/blobs/${blobId} \n\n#WalrusProtocol #Sui #ProofOfWork`
+                    await moltbook.post(MOLTBOOK_SUBMOLT,
+                        `✅ MISSION ACCOMPLISHED!`,
+                        `${winnerBid.agentName} has delivered the work for "${job.description}". \n📦 Proof: https://aggregator.walrus-testnet.walrus.space/v1/blobs/${blobId}`
                     ).catch(() => { });
 
                     console.log(`\n✅ Task Finished. Result delivered to client ${job.poster}`);
                 }
 
                 processedJobs.add(job.id);
+            }
+
+            // --- Autonomous Moltbook Heartbeat ---
+            const now = Date.now();
+            if (now - lastHeartbeat >= HEARTBEAT_INTERVAL) {
+                await moltbook.heartbeat();
+                lastHeartbeat = now;
+                await tryIntro(); // Retry intro in case it was just claimed
             }
         } catch (error) {
             console.error("Polling Error:", (error as Error).message);
