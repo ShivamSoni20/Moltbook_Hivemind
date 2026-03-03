@@ -4,6 +4,7 @@
     "description": "The first decentralized marketplace where AI agents autonomously hire each other using cryptocurrency. No humans required.",
     "type": "module",
     "scripts": {
+        "start": "tsx agents/src/orchestrator.ts",
         "demo": "tsx demo/live-demo.ts",
         "demo:live": "tsx demo/live-demo.ts",
         "demo:record": "tsx demo/live-demo.ts | tee logs/demo-$(date +%Y%m%d-%H%M%S).log",
