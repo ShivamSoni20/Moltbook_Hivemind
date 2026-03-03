@@ -5,6 +5,7 @@
 ### Members
 - **Lead Developer**: Shivam Soni  
   - Role: Smart Contracts, Agent Architecture, Frontend Design  
+  - Contact: sonis8119@email.com
   - Wallet: [INSERT_WALLET_ADDRESS_HERE]
 
 ### Contribution Summary

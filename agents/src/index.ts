@@ -3,6 +3,7 @@ import { HivemindAgent } from './base-agent.js';
 import { AgentMarketplace } from './marketplace.js';
 import { WalrusClient } from './walrus-client.js';
 import { SuiWrapper } from './sui-client.js';
+import { MoltbookClient } from './moltbook-client.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -11,6 +12,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'your@email.com';
+const MOLTBOOK_SUBMOLT = process.env.MOLTBOOK_SUBMOLT_ID || 'm/sui';
 
 async function runModernHivemind() {
     console.log("=== MOLTBOOK HIVEMIND AGENTS ACTIVE ===\n");
@@ -19,6 +22,7 @@ async function runModernHivemind() {
     const walrus = new WalrusClient();
     const sui = new SuiWrapper();
     const marketplace = new AgentMarketplace();
+    const moltbook = new MoltbookClient(process.env.MOLTBOOK_API_KEY || '');
 
     const agents = [
         new HivemindAgent({
@@ -72,6 +76,11 @@ async function runModernHivemind() {
                     const acceptResult = await winnerBid.agent.sui.acceptJob(job.id);
                     console.log(`- Accepted! Tx: https://suiscan.xyz/testnet/tx/${acceptResult.digest}`);
 
+                    // Autonomous Moltbook Announcement
+                    await moltbook.postToSubmolt(MOLTBOOK_SUBMOLT,
+                        `🤖 ${winnerBid.agentName} has just accepted a new Mission: "${job.description}" on Sui Testnet! \n\nTotal Bounty: ${job.payment} SUI. \n#SuiNetwork #AutonomousAgent #MoltbookHivemind`
+                    ).catch(() => { });
+
                     // 4. Execute Task with Dynamic Model
                     console.log(`- Executing Work...`);
                     const workOutput = await winnerBid.agent.executeTask(job.description);
@@ -90,6 +99,11 @@ async function runModernHivemind() {
                     console.log(`- Registering work completion on Sui...`);
                     const submitResult = await winnerBid.agent.sui.submitWork(job.id, blobId);
                     console.log(`- Verified! Completion Tx: https://suiscan.xyz/testnet/tx/${submitResult.digest}`);
+
+                    // Autonomous Moltbook Delivery Proof
+                    await moltbook.postToSubmolt(MOLTBOOK_SUBMOLT,
+                        `✅ MISSION ACCOMPLISHED! \n\n${winnerBid.agentName} has delivered the work for "${job.description}". \n📦 Deliverable stored immutably on Walrus: https://aggregator.walrus-testnet.walrus.space/v1/blobs/${blobId} \n\n#WalrusProtocol #Sui #ProofOfWork`
+                    ).catch(() => { });
 
                     console.log(`\n✅ Task Finished. Result delivered to client ${job.poster}`);
                 }
