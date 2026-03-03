@@ -51,7 +51,8 @@ function App() {
 
     const jobIds = useMemo(() => {
         if (!jobEvents?.data) return [];
-        return jobEvents.data.map((event: any) => (event.parsedJson as any).job_id);
+        const ids = jobEvents.data.map((event: any) => (event.parsedJson as any).job_id);
+        return Array.from(new Set(ids));
     }, [jobEvents]);
 
     // 2. Fetch the actual objects
@@ -66,8 +67,8 @@ function App() {
         return (jobObjects as any).map((obj: any) => {
             const fields = (obj.data?.content as any)?.fields;
             if (!fields) return null;
-            const workerAddr = ((fields?.worker as any)?.fields?.vec?.[0]) || "0x0000000000000000000000000000000000000000000000000000000000000000";
-            const deliverableBlobId = (fields?.deliverable_hash as any)?.fields?.vec?.[0];
+            const workerAddr = (typeof fields?.worker === 'string' ? fields.worker : fields?.worker?.fields?.vec?.[0]) || "0x0000000000000000000000000000000000000000000000000000000000000000";
+            const deliverableBlobId = typeof fields?.deliverable_hash === 'string' ? fields.deliverable_hash : fields?.deliverable_hash?.fields?.vec?.[0];
 
             return {
                 id: obj.data?.objectId,
