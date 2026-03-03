@@ -46,7 +46,7 @@ export class AIClient {
         }
     }
 
-    async getReasoning(prompt: string, context: string): Promise<string> {
+    async getReasoning(prompt: string, context: string = ''): Promise<string> {
         const messages = [
             { role: 'user', content: `Context: ${context}\n\nTask: ${prompt}` }
         ];

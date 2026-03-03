@@ -30,7 +30,8 @@ async function runOrchestrator() {
             }
 
             for (const job of openJobs) {
-                console.log(`\n📋 Found Job: "${job.description.substring(0, 50)}..."`);
+                if (!job) continue;
+                console.log(`\n📋 Found Job: "${String(job.description).substring(0, 50)}..."`);
                 console.log(`💰 Bounty: ${job.payment} SUI | Poster: ${job.poster}`);
 
                 // Step 1: AI Reasoning
