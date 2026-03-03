@@ -35,7 +35,7 @@ async function runOrchestrator() {
                 console.log(`💰 Bounty: ${job.payment} SUI | Poster: ${job.poster}`);
 
                 // Step 1: AI Reasoning
-                console.log("🧠 Analyzing requirements with Claude 3.5 Sonnet...");
+                console.log("🧠 Analyzing requirements with GPT-4o...");
                 const reasoning = await ai.getReasoning(`
                     Job Description: ${job.description}
                     Reward: ${job.payment} SUI
