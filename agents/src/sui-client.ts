@@ -158,7 +158,7 @@ export class SuiWrapper {
                     payment: parseInt(fields.payment?.fields?.balance || "0") / 1_000_000_000,
                     status: fields.status,
                     poster: fields.poster,
-                    worker: fields.worker?.fields?.contents
+                    worker: fields.worker?.fields?.vec?.[0]
                 };
             }).filter(job => job !== null && job.status === 0);
         } catch (error) {

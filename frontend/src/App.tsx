@@ -48,7 +48,9 @@ function App() {
         return (jobObjects as any).map((obj: any) => {
             const fields = (obj.data?.content as any)?.fields;
             if (!fields) return null;
-            const workerAddr = fields?.worker?.fields?.contents || "0x0000000000000000000000000000000000000000000000000000000000000000";
+            const workerAddr = ((fields?.worker as any)?.fields?.vec?.[0]) || "0x0000000000000000000000000000000000000000000000000000000000000000";
+            const deliverableBlobId = (fields?.deliverable_hash as any)?.fields?.vec?.[0];
+
             return {
                 id: obj.data?.objectId,
                 title: fields?.description || 'Untitled Job',
@@ -59,7 +61,7 @@ function App() {
                         fields?.status === 2 ? 'Delivered' :
                             fields?.status === 3 ? 'Completed' : 'Disputed',
                 statusCode: fields?.status,
-                deliverable: fields?.deliverable_hash,
+                deliverable: deliverableBlobId,
                 worker: workerAddr === '0x0000000000000000000000000000000000000000000000000000000000000000' ? '-' :
                     workerAddr.slice(0, 6) + '...' + workerAddr.slice(-4),
                 fullWorker: workerAddr,
