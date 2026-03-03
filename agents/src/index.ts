@@ -22,7 +22,7 @@ async function runModernHivemind() {
     const walrus = new WalrusClient();
     const sui = new SuiWrapper();
     const marketplace = new AgentMarketplace();
-    const moltbook = new MoltbookClient(process.env.MOLTBOOK_API_KEY || '');
+    const moltbook = new MoltbookClient(process.env.MOLTBOOK_API_KEY || '', ai);
 
     const agents = [
         new HivemindAgent({
