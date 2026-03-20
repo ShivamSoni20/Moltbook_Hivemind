@@ -1,6 +1,6 @@
 import { standardPrincipalCV, cvToHex } from '@stacks/transactions';
 import { STACKS_TESTNET } from '@stacks/network';
-import { AppConfig, UserSession, connect } from '@stacks/connect';
+import { AppConfig, UserSession, authenticate } from '@stacks/connect';
 
 export const CONTRACTS = {
   JOB_REGISTRY:   'ST30TRK58DT4P8CJQ8Y9D539X1VET78C63BNF0C9A.job-registry',
@@ -22,10 +22,11 @@ export const connectWallet = async (onFinish: (userData: any) => void) => {
     return;
   }
 
-  // Use the v8.x `connect()` API instead of `showConnect()`.
-  // showConnect is undefined at runtime due to a circular dependency bug
-  // in @stacks/connect@8.2.6, but connect() works correctly.
-  await (connect as any)({
+  // Use authenticate() — the working Stacks auth flow.
+  // showConnect() is broken (undefined) in @stacks/connect@8.2.6
+  // connect() is the Reown/WalletConnect function, not Leather.
+  // authenticate() is the actual Stacks/Leather wallet authentication.
+  await (authenticate as any)({
     appDetails: {
       name: 'MolSwarm Hivemind',
       icon: window.location.origin + '/logo.png',
