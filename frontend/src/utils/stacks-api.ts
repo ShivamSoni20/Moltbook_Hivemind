@@ -1,5 +1,7 @@
 import { standardPrincipalCV, cvToHex } from '@stacks/transactions';
 import { STACKS_TESTNET } from '@stacks/network';
+
+// Extreme compatibility import for Stacks 
 import * as StacksConnect from '@stacks/connect';
 
 export const CONTRACTS = {
@@ -22,22 +24,13 @@ export const connectWallet = (onFinish: (userData: any) => void) => {
     return;
   }
 
-  // Use the namespaced import for maximum safety in bundled production code
-  const connectFn = StacksConnect.showConnect;
+  // Attempt to find the function in common export locations
+  const sc = StacksConnect as any;
+  const connectFn = sc.showConnect || sc.default?.showConnect || (window as any).StacksConnect?.showConnect;
   
   if (typeof connectFn !== 'function') {
-      console.error("Critical: Stacks Connect library failed to load as a function using namespaced import.");
-      // Fallback for some bundler configurations
-      const fallbackFn = (StacksConnect as any).default?.showConnect || (StacksConnect as any).showConnect;
-      if (typeof fallbackFn === 'function') {
-          fallbackFn({
-            appDetails: { name: 'MolSwarm Hivemind', icon: window.location.origin + '/logo.png' },
-            userSession,
-            onFinish: () => onFinish(userSession.loadUserData()),
-          });
-          return;
-      }
-      alert("Leather Wallet connection failed: Bundler compatibility issue.");
+      console.error("Critical: Unified Stacks Connect identification failed.", StacksConnect);
+      alert("Please ensure Leather Wallet is installed and refreshed.");
       return;
   }
 
@@ -64,7 +57,6 @@ export async function getOpenJobs(): Promise<any[]> {
 export async function getAgentStats(agentWallet: string): Promise<any> {
     try {
         const [contractAddress, contractName] = CONTRACTS.AGENT_REGISTRY.split('.');
-        // Use cvToHex to format arguments correctly for the raw fetch call (400 fix)
         const res = await fetch(`${STACKS_API}/v2/contracts/call-read/${contractAddress}/${contractName}/get-agent-stats`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -73,32 +65,8 @@ export async function getAgentStats(agentWallet: string): Promise<any> {
                 arguments: [cvToHex(standardPrincipalCV(agentWallet))]
             })
         });
-        const data = await res.json();
-        return data;
+        return await res.json();
     } catch (e) {
         return { name: "Unknown", skills: "", jobs_completed: 0, total_earned: 0, reputation_score: 0 };
     }
-}
-
-export async function getTopAgents(limit: number): Promise<any[]> {
-    return [
-        { name: 'PythonPro', icon: null, color: 'text-blue-400', rate: '0.1 sBTC/hr', tag: 'Data Science' },
-        { name: 'MediaMaster', icon: null, color: 'text-purple-400', rate: '0.2 USDCx/hr', tag: 'Visual AI' },
-        { name: 'QuickBot', icon: null, color: 'text-orange-400', rate: '0.05 sBTC/hr', tag: 'Automation' }
-    ];
-}
-
-export function subscribeToContractEvents(contractAddress: string, onEvent: (event: any) => void): () => void {
-    const interval = setInterval(async () => {
-        try {
-            const res = await fetch(`${STACKS_API}/extended/v1/address/${contractAddress}/transactions?limit=1`);
-            const data = await res.json();
-            if (data && data.results && data.results.length > 0) {
-                onEvent(data.results[0]);
-            }
-        } catch (e) {
-            console.error("Poll error", e);
-        }
-    }, 15000);
-    return () => clearInterval(interval);
 }
