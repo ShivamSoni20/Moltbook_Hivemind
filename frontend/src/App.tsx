@@ -5,7 +5,7 @@ import { MetricsDashboard } from './components/MetricsDashboard';
 import HeroMetrics from './components/HeroMetrics';
 import PaymentWaterfall from './components/PaymentWaterfall';
 import ContractExplorer from './components/ContractExplorer';
-import { connectWallet } from './utils/stacks-api';
+import { connectWallet, userSession } from './utils/stacks-api';
 
 const PACKAGE_ID = "ST30TRK58DT4P8CJQ8Y9D539X1VET78C63BNF0C9A";
 
@@ -25,6 +25,13 @@ function resolveAgentName(address: string | undefined): string {
 
 function App() {
     const [account, setAccount] = useState<any>(null);
+
+    useEffect(() => {
+        if (userSession.isUserSignedIn()) {
+            setAccount(userSession.loadUserData());
+        }
+    }, []);
+
     const [view, setView] = useState<'landing' | 'dashboard'>('landing');
     const [activeTab, setActiveTab] = useState('marketplace');
     const [showPostModal, setShowPostModal] = useState(false);
@@ -185,13 +192,46 @@ function App() {
                         <h2 className="text-3xl font-bold tracking-tight">{activeTab === 'marketplace' ? 'Live Auctions' : activeTab === 'agents' ? 'Agent Swarm' : 'Activity Feed'}</h2>
                         <p className="text-slate-400 font-medium">Operating on Stacks Testnet Protocol v1.4</p>
                     </div>
-                    <button
-                        onClick={() => setShowPostModal(true)}
-                        className="flex items-center gap-3 px-8 py-3.5 bg-white text-slate-950 font-black rounded-2xl hover:bg-slate-200 transition-all active:scale-95 shadow-2xl shadow-white/5 uppercase tracking-tighter"
-                    >
-                        <Plus className="w-5 h-5" />
-                        Post Bounty
-                    </button>
+                    <div className="flex items-center gap-4">
+                        {account ? (
+                            <div className="relative group">
+                                <button className="flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 transition-all">
+                                    <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-[10px] font-black text-white">
+                                        ST
+                                    </div>
+                                    <span className="font-mono text-xs font-bold text-slate-300">
+                                        {account?.profile?.stxAddress?.mainnet?.slice(0, 6) || 'ST...'}...{account?.profile?.stxAddress?.mainnet?.slice(-4) || '....'}
+                                    </span>
+                                </button>
+                                <div className="absolute right-0 top-full mt-2 w-48 bg-slate-900 border border-white/10 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 overflow-hidden">
+                                    <div className="px-4 py-3 border-b border-white/5 bg-white/5">
+                                        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Authenticated</p>
+                                        <p className="text-[10px] font-mono text-orange-400 truncate">{account?.profile?.stxAddress?.mainnet || 'Stacks Wallet'}</p>
+                                    </div>
+                                    <button 
+                                        onClick={() => { userSession.signUserOut(); setAccount(null); }}
+                                        className="w-full text-left px-4 py-3 hover:bg-rose-500/10 text-rose-400 font-bold text-xs transition-colors"
+                                    >
+                                        Disconnect Wallet
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <button
+                                onClick={() => connectWallet(setAccount)}
+                                className="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-2xl transition-all active:scale-95 text-xs uppercase"
+                            >
+                                Connect Stacks
+                            </button>
+                        )}
+                        <button
+                            onClick={() => setShowPostModal(true)}
+                            className="flex items-center gap-3 px-8 py-3.5 bg-white text-slate-950 font-black rounded-2xl hover:bg-slate-200 transition-all active:scale-95 shadow-2xl shadow-white/5 uppercase tracking-tighter"
+                        >
+                            <Plus className="w-5 h-5" />
+                            Post Bounty
+                        </button>
+                    </div>
                 </header>
 
                 <div className="max-w-7xl mx-auto space-y-12">

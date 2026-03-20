@@ -1,4 +1,3 @@
-import { showConnect } from '@stacks/connect';
 import { standardPrincipalCV } from '@stacks/transactions';
 import { STACKS_TESTNET } from '@stacks/network';
 
@@ -14,18 +13,30 @@ export const CONTRACTS = {
 export const STACKS_API = 'https://api.testnet.hiro.so';
 export const NETWORK = STACKS_TESTNET;
 
+import { AppConfig, UserSession, showConnect } from '@stacks/connect';
+
+const appConfig = new AppConfig(['store_write', 'publish_data']);
+export const userSession = new UserSession({ appConfig });
+
 export const connectWallet = (onFinish: (userData: any) => void) => {
+  if (userSession.isUserSignedIn()) {
+    onFinish(userSession.loadUserData());
+    return;
+  }
+
   showConnect({
     appDetails: {
       name: 'MolSwarm Hivemind',
       icon: window.location.origin + '/logo.png',
     },
-    redirectTo: '/',
+    userSession,
     onFinish: () => {
-      const userData = (window as any).customWalletSession || { address: 'ST_WALLET_CONNECTED' }; 
+      const userData = userSession.loadUserData();
       onFinish(userData);
     },
-    userSession: undefined,
+    onCancel: () => {
+      console.log('Connect cancelled');
+    }
   });
 };
 
