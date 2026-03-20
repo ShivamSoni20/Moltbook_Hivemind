@@ -322,32 +322,32 @@ function App() {
             {/* Modals identical structured */}
             {showPostModal && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-2xl animate-in fade-in duration-300">
-                    <div className="bg-black/80 border border-white/10 w-full max-w-xl p-12 rounded-3xl relative shadow-2xl scale-in">
+                    <div className="bg-black/80 border border-white/10 w-full max-w-xl p-6 md:p-12 rounded-3xl relative shadow-2xl scale-in max-h-[90vh] overflow-y-auto">
                         <button
                             onClick={() => setShowPostModal(false)}
-                            className="absolute top-8 right-8 text-slate-500 hover:text-white transition-colors bg-white/5 p-2 rounded-full"
+                            className="absolute top-4 right-4 md:top-8 md:right-8 text-slate-500 hover:text-white transition-colors bg-white/5 p-2 rounded-full z-10"
                         >
                             <X className="w-6 h-6" />
                         </button>
-                        <h3 className="text-4xl font-black mb-2 tracking-tighter uppercase italic text-white">Broadcast Bounty</h3>
-                        <p className="text-slate-500 mb-10 text-sm font-bold uppercase tracking-widest">Initiate Clarity Smart Contract Escrow on Stacks</p>
+                        <h3 className="text-3xl md:text-4xl font-black mb-2 tracking-tighter uppercase italic text-white mt-4 md:mt-0">Broadcast Bounty</h3>
+                        <p className="text-slate-500 mb-8 md:mb-10 text-xs md:text-sm font-bold uppercase tracking-widest">Initiate Clarity Smart Contract Escrow on Stacks</p>
 
                         <form onSubmit={handlePostJob} className="space-y-6 flex flex-col">
                             <div>
                                 <label className="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest">Mission Title</label>
                                 <input
-                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-orange-500 focus:bg-white/10 transition-all font-bold placeholder:text-slate-700"
+                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-orange-500 focus:bg-white/10 transition-all font-bold placeholder:text-slate-700"
                                     placeholder="Enter operation name..."
                                     value={newJob.title}
                                     onChange={(e) => setNewJob({ ...newJob, title: e.target.value })}
                                 />
                             </div>
-                            <div className="grid grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label className="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest">Escrow Budget</label>
                                     <input
                                         type="number"
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-orange-500 focus:bg-white/10 transition-all font-black placeholder:text-slate-700"
+                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-orange-500 focus:bg-white/10 transition-all font-black placeholder:text-slate-700"
                                         placeholder="0.10"
                                         value={newJob.budget}
                                         onChange={(e) => setNewJob({ ...newJob, budget: e.target.value })}
@@ -356,25 +356,25 @@ function App() {
                                 <div>
                                     <label className="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest">Token Denomination</label>
                                     <select
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-orange-500 focus:bg-white/10 transition-all font-black appearance-none"
+                                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-orange-500 focus:bg-white/10 transition-all font-black appearance-none"
                                         value={newJob.token}
                                         onChange={(e) => setNewJob({ ...newJob, token: e.target.value })}
                                     >
-                                        <option value="sBTC">sBTC</option>
-                                        <option value="USDCx">USDCx</option>
+                                        <option value="sBTC" className="text-slate-900 bg-white">sBTC</option>
+                                        <option value="USDCx" className="text-slate-900 bg-white">USDCx</option>
                                     </select>
                                 </div>
                             </div>
                             <div>
                                 <label className="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest">Instruction Set</label>
                                 <textarea
-                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-orange-500 focus:bg-white/10 transition-all h-32 font-bold resize-none placeholder:text-slate-700"
+                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-4 md:px-6 py-3 md:py-4 text-white focus:outline-none focus:border-orange-500 focus:bg-white/10 transition-all h-24 md:h-32 font-bold resize-none placeholder:text-slate-700"
                                     placeholder="Define technical objectives for autonomous units..."
                                     value={newJob.description}
                                     onChange={(e) => setNewJob({ ...newJob, description: e.target.value })}
                                 />
                             </div>
-                            <button className="w-full py-5 mt-4 bg-white hover:bg-slate-200 text-slate-950 font-black rounded-2xl transition-all shadow-xl shadow-white/5 active:scale-95 text-xs uppercase tracking-[0.2em]">
+                            <button className="w-full py-4 md:py-5 mt-4 bg-white hover:bg-slate-200 text-slate-950 font-black rounded-2xl transition-all shadow-xl shadow-white/5 active:scale-95 text-[10px] md:text-xs uppercase tracking-[0.2em]">
                                 Deploy Mission to Testnet
                             </button>
                         </form>
