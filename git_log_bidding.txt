@@ -1,0 +1,332 @@
+﻿commit c079cc8ed34582f3c6fe8951126e605e8e1727fc
+Author: Shivam Soni <160405702+ShivamSoni20@users.noreply.github.com>
+Date:   Wed Mar 4 02:32:54 2026 +0530
+
+    changes the names of the agents
+
+ register-moltbook.js | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit f6a0388a7f5f77d5ecc6edd99b5881061e4328b0
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 02:31:34 2026 +0530
+
+    feat: update moltbook registration script to support multiple agents
+
+ register-moltbook.js | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 9e03d7a6728a016b909fe2e18b35b3264c76647a
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 02:26:27 2026 +0530
+
+    feat: use unique names for PythonPro and MediaMaster to avoid Moltbook registration conflicts
+
+ register-moltbook.js | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit e957d70877884ea519e7337964d014226751d677
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 02:22:07 2026 +0530
+
+    feat: update registration script to include all three Hivemind agents
+
+ register-moltbook.js | 66 +++++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 42 insertions(+), 24 deletions(-)
+
+commit 5dd4b893a3228ba8d84d93e50b4842b92d1f83c9
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 02:02:57 2026 +0530
+
+    Add one-time Moltbook registration script for Railway deployment
+
+ register-moltbook.js | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+commit 70bc0dde76cc999893e084ea5f5ccb649df9750d
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 01:34:53 2026 +0530
+
+    feat: implement owner email association and message router for Moltbook setup
+
+ agents/src/index.ts           | 21 ++++++++++++++++++---
+ agents/src/moltbook-client.ts | 26 +++++++++++++++++++++++++-
+ 2 files changed, 43 insertions(+), 4 deletions(-)
+
+commit 372b79b824b92676cb424346ac3a90966eb5ac1e
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 01:30:14 2026 +0530
+
+    docs: update contact email to sonis8119@gmail.com
+
+ agents/skills/moltbook/heartbeat.md |   8 +++
+ agents/skills/moltbook/messaging.md |   3 +
+ agents/skills/moltbook/skill.json   |  19 ++++++
+ agents/src/index.ts                 |  34 +++++++--
+ agents/src/moltbook-client.ts       | 133 +++++++++++++++++++-----------------
+ agents/src/moltbook-setup.ts        |  53 ++++++++++++++
+ submission/team-info.md             |   2 +-
+ 7 files changed, 184 insertions(+), 68 deletions(-)
+
+commit 86f66347729a94f82999a6a5343cfdf9ce3a5ac6
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 01:19:21 2026 +0530
+
+    feat: implement autonomous AI verification challenge solving for Moltbook
+
+ agents/src/index.ts           |  2 +-
+ agents/src/moltbook-client.ts | 38 +++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 38 insertions(+), 2 deletions(-)
+
+commit d56d5c113aec4f78ebdcf200a86e9083ab14ab85
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 01:16:07 2026 +0530
+
+    feat: integrate autonomous Moltbook reporting loop and client identity
+
+ agents/src/register-agents.ts | 47 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
+
+commit d9ba9f5cf4bd391c5eace4dc4bb36232ccef23cb
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 01:09:44 2026 +0530
+
+    feat: complete Moltbook integration and update contact email to sonis8119@email.com
+
+ README.md                     |  17 +++++--
+ agents/src/index.ts           |  14 ++++++
+ agents/src/moltbook-client.ts | 105 ++++++++++++++++++++++++++++++++++++++++++
+ submission/team-info.md       |   1 +
+ 4 files changed, 134 insertions(+), 3 deletions(-)
+
+commit d181f6967cddf823011ec272588478127a67dd02
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:56:12 2026 +0530
+
+    docs: finalize Walrus example link for hackathon submission
+
+ submission/links.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit ea4399492ea341bfcf5a727de835258338cd01ea
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:50:57 2026 +0530
+
+    fix: correctly parse Sui Option types for worker and deliverables in frontend and agents
+
+ agents/src/sui-client.ts | 2 +-
+ frontend/src/App.tsx     | 6 ++++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+commit d05f9f4f7de9dc457c32298c4e14ecb9d0b8d9e2
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:47:22 2026 +0530
+
+    docs: remove demo results section from README
+
+ README.md | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+commit 44b53bbae63d768e9a81104526950d859d3393cc
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:45:33 2026 +0530
+
+    docs: improve README for final submission with GPT-4o, Railway, and 100% autonomy features
+
+ README.md | 37 ++++++++++++++++++++++---------------
+ 1 file changed, 22 insertions(+), 15 deletions(-)
+
+commit 93ff4d22024f661b3ab1a2fe1c17a37a02600add
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:44:31 2026 +0530
+
+    fix: update Walrus urls to use aggregator for public viewing
+
+ frontend/src/App.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 65215d79ff4092c4b5d1abda7b5cfbae38e7a76a
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:41:32 2026 +0530
+
+    polish: update logs to correctly show GPT-4o usage
+
+ agents/src/orchestrator.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 042d869d8afed9535fa3467646ab18cb8b94e05b
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:37:58 2026 +0530
+
+    fix: switch default AI model to gpt-4o for improved reliability
+
+ agents/src/ai-client.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 03d2f8cccbb2e00499564171a05c86e461021470
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:37:25 2026 +0530
+
+    fix: update agents start script and add model identification logging
+
+ agents/package.json     | 2 +-
+ agents/src/ai-client.ts | 4 +++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+commit 413033333289e0f0804c4a77a0cb73648dadfc5b
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:34:28 2026 +0530
+
+    fix: update AI model ID for provider compatibility and resolve 404 error
+
+ agents/src/ai-client.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 41ee199d50953e3eaaf8c2dcba9563c51558d2d0
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:23:45 2026 +0530
+
+    fix: resolve Railway build errors by relaxing tsconfig and fixing orchestrator types
+
+ agents/src/ai-client.ts    | 2 +-
+ agents/src/orchestrator.ts | 3 ++-
+ agents/tsconfig.json       | 4 ++--
+ 3 files changed, 5 insertions(+), 4 deletions(-)
+
+commit ee20a79f2e52d33def6d1be3637d4d8b10cf8a03
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:11:43 2026 +0530
+
+    deploy: move Dockerfile to root and add start script for automatic Railway detection
+
+ Dockerfile           | 20 ++++++++++++++++++++
+ agents/.dockerignore |  5 -----
+ agents/Dockerfile    | 24 ------------------------
+ package.json         |  1 +
+ 4 files changed, 21 insertions(+), 29 deletions(-)
+
+commit 0d06ecf295c92d5cbfe47878b5e2422876725b45
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Wed Mar 4 00:01:14 2026 +0530
+
+    deploy: add Dockerfile and scripts for persistent Railway agent swarm
+
+ agents/.dockerignore       |  5 +++
+ agents/Dockerfile          | 24 +++++++++++++
+ agents/package.json        |  1 +
+ agents/src/orchestrator.ts | 86 ++++++++++++++++++++++++++++++++++++++++++++++
+ frontend/src/App.tsx       | 19 ++++++++++
+ package.json               |  1 +
+ 6 files changed, 136 insertions(+)
+
+commit 5dc6cec5116602e2d3b6c01aa2a4ed841e6088da
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Tue Mar 3 00:47:16 2026 +0530
+
+    fix: resolve Vercel deployment errors by adding tsconfigs and fixing Sui dapp-kit types
+
+ frontend/src/main.tsx       |  2 +-
+ frontend/tsconfig.json      | 33 +++++++++++++++++++++++++++++++++
+ frontend/tsconfig.node.json | 13 +++++++++++++
+ 3 files changed, 47 insertions(+), 1 deletion(-)
+
+commit 19a57e142a3bc34dc8a2a803e5ff4bd8af276fe4
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Mon Mar 2 23:48:33 2026 +0530
+
+    docs: enhance README with Mission OpenClaw narrative and badges
+
+ README.md | 340 +++++++++++++-------------------------------------------------
+ 1 file changed, 68 insertions(+), 272 deletions(-)
+
+commit 12cb527158b5665cbc6e76bfe01b405b2766e5b1
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Mon Mar 2 23:48:15 2026 +0530
+
+    test: implement integration tests with Sui and Walrus retry logic
+
+ tests/integration-test.ts | 77 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 77 insertions(+)
+
+commit 796212a9b43a4f3c70f7648cbae1191a57405e02
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Mon Mar 2 23:47:57 2026 +0530
+
+    assets: add high-fidelity screenshots for mission submission
+
+ submission/screenshots/architecture-concept.png | Bin 0 -> 620208 bytes
+ submission/screenshots/hero-landing.png         | Bin 0 -> 594457 bytes
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit a1f7a821aba8576da1cab5176f25810eba5f296e
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Mon Mar 2 23:47:39 2026 +0530
+
+    feat: add links and submission metadata for DeepSurge portal
+
+ submission/links.md | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+commit 9060c09e932c6cdc3b655ce4b4ab82128a85c7eb
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Mon Mar 2 23:47:24 2026 +0530
+
+    feat: prepare project description and team info for hackathon submission
+
+ submission/project-description.md | 24 ++++++++++++++++++++++++
+ submission/team-info.md           | 14 ++++++++++++++
+ 2 files changed, 38 insertions(+)
+
+commit c51b729b9df478ba5d7d32ba6b972284dcafdb24
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Mon Mar 2 23:45:30 2026 +0530
+
+    docs: create video demonstration shooting script
+
+ demo/video-script.md | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
+
+commit e3697f650522d654fafabe4225c0f3e1e87b3cb8
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Mon Mar 2 23:41:39 2026 +0530
+
+    docs: add system architecture diagrams and technical documentation
+
+ docs/architecture.md | 66 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 66 insertions(+)
+
+commit a55021ee4fd23128f56f80e010f9ca38745974af
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Mon Mar 2 23:41:22 2026 +0530
+
+    feat: integrate MetricsDashboard into frontend dashboard view
+
+ frontend/src/App.tsx | 225 ++++++++++++++++++++++++++-------------------------
+ 1 file changed, 115 insertions(+), 110 deletions(-)
+
+commit 866d1251213284a736c27840b0b89d4acfe8f824
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Mon Mar 2 23:40:58 2026 +0530
+
+    feat: add MetricsDashboard component with proof of autonomy
+
+ frontend/src/components/MetricsDashboard.tsx | 162 +++++++++++++++++++++++++++
+ 1 file changed, 162 insertions(+)
+
+commit 8466d10877b10b2b409e7d2778625d0f629bb7e0
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Mon Mar 2 23:40:35 2026 +0530
+
+    feat: implement live demo script for autonomous agent bidding
+
+ demo/live-demo.ts | 168 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 168 insertions(+)
+
+commit 3945d7a30e4effc8da4f3d3579389b8171878246
+Author: ShivamSoni <ss28022802@gmail.com>
+Date:   Mon Mar 2 23:40:13 2026 +0530
+
+    chore: initialize root package.json with demo and test scripts
+
+ package.json | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)

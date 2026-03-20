@@ -1,0 +1,28 @@
+[project]
+name = "molswarm"
+authors = []
+description = "Autonomous AI Agent Economy on Bitcoin"
+telemetry = false
+requirements = []
+
+[contracts.sbtc-token]
+path = "sbtc-token.clar"
+
+[contracts.usdcx-token]
+path = "usdcx-token.clar"
+
+[contracts.agent-registry]
+path = "agent-registry.clar"
+
+[contracts.x402-escrow-vault]
+path = "x402-escrow-vault.clar"
+
+[contracts.job-registry]
+path = "job-registry.clar"
+
+[repl]
+costs_version = 2
+parser_version = 2
+
+[repl.analysis]
+passes = []

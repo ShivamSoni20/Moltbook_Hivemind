@@ -1,0 +1,96 @@
+﻿warning: use of potentially unchecked data
+--> agent-registry.clar:45:13
+      name: name,
+            ^~~~
+note:: source of untrusted input here
+(define-public (register-agent (name (string-ascii 50)) (skill-tags (string-ascii 200)) (wallet principal))
+                               ^~~~
+warning: use of potentially unchecked data
+--> agent-registry.clar:46:19
+      skill-tags: skill-tags,
+                  ^~~~~~~~~~
+note:: source of untrusted input here
+(define-public (register-agent (name (string-ascii 50)) (skill-tags (string-ascii 200)) (wallet principal))
+                                                        ^~~~~~~~~~
+warning: use of potentially unchecked data
+--> agent-registry.clar:78:46
+    (try! (nft-mint? agent-reputation nft-id (get wallet agent)))
+                                             ^~~~~~~~~~~~~~~~~~
+note:: source of untrusted input here
+(define-public (mint-reputation-nft (agent-id uint) (job-id uint))
+                                    ^~~~~~~~
+warning: use of potentially unchecked data
+--> agent-registry.clar:81:25
+    (map-set agents-map agent-id (merge agent {
+                        ^~~~~~~~
+note:: source of untrusted input here
+(define-public (mint-reputation-nft (agent-id uint) (job-id uint))
+                                    ^~~~~~~~
+warning: use of potentially unchecked data
+--> agent-registry.clar:81:34
+    (map-set agents-map agent-id (merge agent {
+                                 ^
+note:: source of untrusted input here
+(define-public (mint-reputation-nft (agent-id uint) (job-id uint))
+                                    ^~~~~~~~
+error: use of unresolved contract 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.x402-escrow-vault'
+--> job-registry.clar:50:4
+  (let 
+   ^~~
+    (
+      (new-job-id (+ (var-get last-job-id) u1))
+      (deadline (+ block-height deadline-blocks))
+    ^
+    (asserts! (or (is-eq token "sBTC") (is-eq token "USDCx")) err-invalid-token)
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    (if (is-eq token "sBTC")
+        (try! (contract-call? .x402-escrow-vault lock-sbtc new-job-id bounty-amount))
+        (try! (contract-call? .x402-escrow-vault lock-usdcx new-job-id bounty-amount))
+    ^
+    (map-insert jobs-map new-job-id {
+      title: title,
+      description: description,
+      bounty-amount: bounty-amount,
+      token: token,
+      poster: tx-sender,
+      status: "OPEN",
+      deadline: deadline
+    ^
+    (var-set last-job-id new-job-id)
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    (print { event: "job-posted", id: new-job-id, poster: tx-sender, bounty: bounty-amount, token: token })
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    (ok new-job-id)
+    ^~~~~~~~~~~~~~~
+error: use of unresolved contract 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token'
+--> x402-escrow-vault.clar:30:4
+  (let 
+   ^~~
+    (
+      (poster tx-sender)
+    ^
+    (asserts! (> amount u0) err-invalid-amount)
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    (try! (contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-token transfer amount poster (as-contract tx-sender) none))
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    (map-set vault-balances job-id { amount: amount, token: "sBTC", poster: poster })
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    (print { event: "lock-sbtc", job-id: job-id, amount: amount, poster: poster })
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    (ok true)
+    ^~~~~~~~~
+! 5 warnings detected
+x 2 errors detected
+
+----------------------------
+Hint: what's next?
+Once you are ready to write TypeScript unit tests for your contract, run the following command:
+
+  $ npm install
+  $ npm test
+    Run all run tests in the ./tests folder.
+
+Find more information on testing with Clarinet here: https://docs.hiro.so/stacks/clarinet-js-sdk
+These hints can be disabled in the ~/.clarinet/clarinetrc.toml file.
+  $ mkdir -p ~/.clarinet; echo "enable_hints = false" >> ~/.clarinet/clarinetrc.toml
+----------------------------

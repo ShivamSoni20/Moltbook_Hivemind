@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["agents/**/*", "swarm/**/*", "demo/**/*"],
+  "exclude": ["node_modules", "frontend"]
+}
