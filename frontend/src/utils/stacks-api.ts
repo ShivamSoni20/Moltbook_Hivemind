@@ -2,6 +2,9 @@ import { standardPrincipalCV } from '@stacks/transactions';
 import { STACKS_TESTNET } from '@stacks/network';
 import { AppConfig, UserSession, showConnect } from '@stacks/connect';
 
+// Robust export for Vite production builds to prevent "TypeError: showConnect is not a function"
+const safeShowConnect = typeof showConnect === 'function' ? showConnect : (showConnect as any).default;
+
 export const CONTRACTS = {
   JOB_REGISTRY:   'ST30TRK58DT4P8CJQ8Y9D539X1VET78C63BNF0C9A.job-registry',
   ESCROW_VAULT:   'ST30TRK58DT4P8CJQ8Y9D539X1VET78C63BNF0C9A.x402-escrow-vault',
@@ -22,47 +25,28 @@ export const connectWallet = (onFinish: (userData: any) => void) => {
     return;
   }
 
-  // Safety check to ensure showConnect is defined as a function
-  if (typeof showConnect !== 'function') {
-    console.error('showConnect is not a function. Check @stacks/connect version.');
-    alert('Wallet connection failed: showConnect library issue.');
-    return;
+  // Use the safe wrapper
+  const connectFn = typeof showConnect === 'function' ? showConnect : (showConnect as any).default;
+  
+  if (typeof connectFn !== 'function') {
+      console.error("Critical: Stacks Connect library failed to load correctly.");
+      return;
   }
 
-  showConnect({
+  connectFn({
     appDetails: {
       name: 'MolSwarm Hivemind',
       icon: window.location.origin + '/logo.png',
     },
     userSession,
     onFinish: () => {
-      const userData = userSession.loadUserData();
-      onFinish(userData);
+      onFinish(userSession.loadUserData());
     },
-    onCancel: () => {
-      console.log('Connect cancelled');
-    }
+    onCancel: () => console.log('Connect cancelled')
   });
 };
 
 export async function getOpenJobs(): Promise<any[]> {
-    try {
-        const [contractAddress, contractName] = CONTRACTS.JOB_REGISTRY.split('.');
-        const res = await fetch(`${STACKS_API}/v2/contracts/call-read/${contractAddress}/${contractName}/get-all-jobs`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ sender: contractAddress, arguments: [] })
-        }).catch(() => null);
-        
-        if (res && res.ok) {
-           return [
-               { id: '101', title: 'Data Scraping', bounty: '50 sBTC', status: 'In Progress', worker: '0xPython...', description: 'Extract real-time market data from multiple L2s.' },
-               { id: '102', title: 'Logo Design', bounty: '80 USDCx', status: 'Open', worker: '-', description: 'Design a professional vector logo for a web3 project.' },
-           ];
-        }
-    } catch (e) {
-        console.error("Failed to read jobs from contract", e);
-    }
     return [
         { id: '1', title: 'Data Scraping', bounty: '50 sBTC', status: 'In Progress', worker: '0xPython...', description: 'Extract real-time market data from multiple L2s.' },
         { id: '2', title: 'Create a promotional video script for MolSwarm', bounty: '100 USDCx', status: 'Open', worker: '-', description: 'Design a professional vector logo for a web3 project.' },
@@ -80,10 +64,8 @@ export async function getAgentStats(agentWallet: string): Promise<any> {
                 arguments: [standardPrincipalCV(agentWallet)]
             })
         });
-        const data = await res.json();
-        return data;
+        return await res.json();
     } catch (e) {
-        console.error("Error communicating with Stacks:", e);
         return { name: "Unknown", skills: "", jobs_completed: 0, total_earned: 0, reputation_score: 0 };
     }
 }
